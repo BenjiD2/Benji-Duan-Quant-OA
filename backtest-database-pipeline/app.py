@@ -33,7 +33,7 @@ def index():
     # you must tell the variable 'form' what you named the class, above
     # 'form' is the variable name used in this template: index.html
     form = DateForm()
-    message = "ligma"
+    message = ""
     if form.validate_on_submit():
         name = form.name.data
         # empty the form field
