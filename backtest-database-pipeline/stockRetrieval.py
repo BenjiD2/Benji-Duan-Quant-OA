@@ -1,9 +1,5 @@
 import datetime
-
 from polygon import RESTClient
-
-def ts_to_datetime(ts) -> str:
-    return datetime.datetime.fromtimestamp(ts / 1000.0).strftime('%Y-%m-%d %H:%M')
 
 class Stock:
     def __init__(self, date, name, close, high, low, trans, open, tvolume, vwaverage):
@@ -17,12 +13,20 @@ class Stock:
         self.TradingVolume = tvolume
         self.VolumeWeightedAverage = vwaverage
 
+def ts_to_datetime(ts) -> str:
+    #This is a helper function that converts the time into a standard date format
+    return datetime.datetime.fromtimestamp(ts / 1000.0).strftime('%Y-%m-%d %H:%M')
+
 def result_to_Stock(result):
+    # Input: API Data
+    # Output: Stock containing API Data
     dt = ts_to_datetime(result["t"])
+    print(result["t"])
     return Stock(dt, "AAPL", {result['c']}, {result['h']}, {result['l']}, {result['t']}, {result['o']}, {result['v']}, {result['vw']})
 
 def createListStock(from_ = "2021-12-01", to = "2021-12-31"):
-
+    # Input: Beginning Date (Optional String), Ending Date (Optional String)
+    # Output: List of Stock containing hourly information from beginning date to ending date
     key = "n20l_ZwmG_9ZvHv8IHtRi8a2A_Yi_IDh"
 
     with RESTClient(key) as client:
@@ -36,7 +40,3 @@ def createListStock(from_ = "2021-12-01", to = "2021-12-31"):
             stockList.append(stockInterval)
 
     return stockList
-
-# if __name__ == '__main__':
-#     bigStock = createListStock()
-#     print(bigStock)

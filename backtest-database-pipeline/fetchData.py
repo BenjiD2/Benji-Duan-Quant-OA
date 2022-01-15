@@ -1,6 +1,9 @@
 import mysql.connector
 
 def fetchResult(a):
+    # Input: Date (String)
+    # Output: Stock Data
+    # Accesses Amazon RDS using MySQL to search and return stock data at the given date
     try:
         connection = mysql.connector.connect(host='stock-database.c0ap9t2mxanj.us-east-2.rds.amazonaws.com',
                                              database='sys',
@@ -15,7 +18,7 @@ def fetchResult(a):
         cursor.execute(mySql_select_Query, Date)
         record = cursor.fetchone()
         return(record)
-        
+
     except mysql.connector.Error as error:
         print("Error while connecting to MySQL", error)
 
@@ -25,6 +28,9 @@ def fetchResult(a):
             connection.close()
 
 def fetchResults():
+    # Input: None
+    # Output: Stock Data
+    # Accesses Amazon RDS using MySQL to return all stock data in the database
     try:
         connection = mysql.connector.connect(host='stock-database.c0ap9t2mxanj.us-east-2.rds.amazonaws.com',
                                              database='sys',

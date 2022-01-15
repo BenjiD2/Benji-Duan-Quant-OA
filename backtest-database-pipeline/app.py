@@ -12,11 +12,13 @@ app.config['SECRET_KEY'] = 'C2HWGVoMGfNTBsrYQg8EcMrdTimkZfAb'
 Bootstrap(app)
 
 class DateForm(FlaskForm):
+    # Creates requirements for Form
     name = StringField('What date would you like?', validators=[DataRequired()])
     submit = SubmitField('Submit')
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
+    # Displays intial page with form, reads in form results and redirects to the correct response
     form = DateForm()
     message = ""
     if form.validate_on_submit():
@@ -27,6 +29,7 @@ def index():
 
 @app.route('/data/<id>')
 def data(id):
+    # Displays results page with stock data, uses form results and fetchResult function to display result
     name = fetchResult(id)
     if name == "Unknown":
         return render_template('404.html'), 404

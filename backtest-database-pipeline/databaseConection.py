@@ -1,16 +1,14 @@
 import datetime, pymysql, stockRetrieval
-
 from polygon import RESTClient
 
-def ts_to_datetime(ts) -> str:
-    return datetime.datetime.fromtimestamp(ts / 1000.0).strftime('%Y-%m-%d %H:%M')
-
 def insertStockData(list):
+    # Input: List of Stock containing hourly information
+    # Output: None
+    # Connects to Amazon RDS and inserts stock data into database
     connection=pymysql.connect (host='stock-database.c0ap9t2mxanj.us-east-2.rds.amazonaws.com',
                             user='admin',
                             password='abcd1234',
                             database='sys')
-
     cursor = connection.cursor()
 
     for stockInstance in list:
@@ -20,7 +18,6 @@ def insertStockData(list):
         connection.commit()
 
 def main():
-
     stockList = stockRetrieval.createListStock()
     insertStockData(stockList)
     
