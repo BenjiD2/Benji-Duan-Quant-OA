@@ -1,6 +1,6 @@
 import mysql.connector
 
-def fetchResults(a):
+def fetchResult(a):
     try:
         connection = mysql.connector.connect(host='stock-database.c0ap9t2mxanj.us-east-2.rds.amazonaws.com',
                                              database='sys',
@@ -15,15 +15,16 @@ def fetchResults(a):
         cursor.execute(mySql_select_Query, Date)
         record = cursor.fetchone()
         return(record)
+        
     except mysql.connector.Error as error:
         print("Error while connecting to MySQL", error)
+
     finally:
         if connection.is_connected():
             cursor.close()
             connection.close()
-            # print("MySQL connection is closed")
 
-def fetchResult():
+def fetchResults():
     try:
         connection = mysql.connector.connect(host='stock-database.c0ap9t2mxanj.us-east-2.rds.amazonaws.com',
                                              database='sys',
@@ -34,12 +35,12 @@ def fetchResult():
         cursor = connection.cursor(buffered=True)
         cursor.execute(mySql_select_Query)
         record = cursor.fetchall()
-        print(record)
+        return(record)
 
     except mysql.connector.Error as error:
         print("Error while connecting to MySQL", error)
+
     finally:
         if connection.is_connected():
             cursor.close()
             connection.close()
-            # print("MySQL connection is closed")

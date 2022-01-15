@@ -27,7 +27,7 @@ def index():
 
 @app.route('/data/<id>')
 def data(id):
-    name = fetchResults(id)
+    name = fetchResult(id)
     if name == "Unknown":
         return render_template('404.html'), 404
     else:
